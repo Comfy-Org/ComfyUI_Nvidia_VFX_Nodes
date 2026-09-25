@@ -97,7 +97,6 @@ class RTXVideoSuperResolution(io.ComfyNode):
                     out_frame = torch.from_dlpack(dlpack_out).movedim(0, -1).unsqueeze(0).clone()
                     out_tensor[i + j: i + j + 1] = out_frame
                     del dlpack_out, result, out_frame
-                    torch.cuda.empty_cache()
 
         return io.NodeOutput(out_tensor)
 
