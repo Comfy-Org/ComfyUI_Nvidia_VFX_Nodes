@@ -7,7 +7,7 @@ ComfyUI nodes for VFX professionals. This extension provides GPU-accelerated nod
 Including:
 
 - **RTX Video Super Resolution**: upscale, denoise, deblur, or enhance images and video frames.
-- **RTX TrueHDR**: convert SDR images to normalized BT.2020/PQ or BT.2020/HLG HDR image data.
+- **RTX Video HDR**: convert SDR images to normalized BT.2020/PQ or BT.2020/HLG HDR image data.
 - **RTX Video Frame Generation**: interpolate frames between adjacent images for frame-rate conversion or slow motion.
 
 ## Requirements
@@ -87,9 +87,9 @@ Importable Super Resolution examples are available in [`example_workflows`](exam
 - [`rtx_image_upscale.json`](example_workflows/rtx_image_upscale.json)
 - [`rtx_video_upscale.json`](example_workflows/rtx_video_upscale.json)
 
-## RTX TrueHDR
+## RTX Video HDR
 
-Find the node under **image/enhancement**. It converts each SDR input image with NVIDIA RTX TrueHDR and returns `hdr_images` at the original dimensions.
+Find the node under **image/enhancement**. It converts each SDR input image with NVIDIA RTX Video HDR and returns `hdr_images` at the original dimensions.
 
 ### Inputs
 
@@ -110,19 +110,19 @@ Find the node under **image/enhancement**. It converts each SDR input image with
 
 ### Workflow
 
-Decode a video to an `IMAGE` batch, connect it to **RTX TrueHDR**, then pass `hdr_images` to video creation/encoding or image saving nodes.
+Decode a video to an `IMAGE` batch, connect it to **RTX Video HDR**, then pass `hdr_images` to video creation/encoding or image saving nodes.
 
-![RTX TrueHDR workflow](example_workflows/rtx_video_true_hdr.jpg)
+![RTX Video HDR workflow](example_workflows/rtx_video_hdr.jpg)
 
-Importable example: [`rtx_video_true_hdr.json`](example_workflows/rtx_video_true_hdr.json)
+Importable example: [`rtx_video_hdr.json`](example_workflows/rtx_video_hdr.json)
 
 ### Long video workflow
 
-For long videos, process the frames in chunks to limit memory use. The loop crops `Frames per Chunk` frames per iteration with **Video Temporal Crop**, converts them with **RTX TrueHDR**, and joins the results with **Concatenate Video**. Set the loop count to the number of chunks needed to cover the whole video.
+For long videos, process the frames in chunks to limit memory use. The loop crops `Frames per Chunk` frames per iteration with **Video Temporal Crop**, converts them with **RTX Video HDR**, and joins the results with **Concatenate Video**. Set the loop count to the number of chunks needed to cover the whole video.
 
-![RTX long video TrueHDR workflow](example_workflows/rtx_long_video_true_hdr.jpg)
+![RTX Video HDR long video workflow](example_workflows/rtx_long_video_hdr.jpg)
 
-Importable example: [`rtx_long_video_true_hdr.json`](example_workflows/rtx_long_video_true_hdr.json)
+Importable example: [`rtx_long_video_hdr.json`](example_workflows/rtx_long_video_hdr.json)
 
 ## RTX Video Frame Generation
 

@@ -1,7 +1,7 @@
 [project]
 name = "comfyui_nvidia_rtx_nodes"
 description = "ComfyUI nodes for VFX professionals\nThis extension provides GPU-accelerated nodes powered by Nvidia RTX technology, including super resolution, frame generation and SDR-to-HDR conversion."
-version = "0.2.0"
+version = "0.2.1"
 license = "LICENSE"
 dependencies = [
   "nvidia-vfx"
