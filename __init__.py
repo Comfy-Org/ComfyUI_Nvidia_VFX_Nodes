@@ -216,7 +216,7 @@ class RTXVideoSuperResolution(io.ComfyNode):
         return io.NodeOutput(output)
 
 
-class RTXVideoHDR(io.ComfyNode):
+class RTXTrueHDR(io.ComfyNode):
     @classmethod
     def define_schema(cls):
         return io.Schema(
@@ -403,7 +403,7 @@ class NVVFXVideoExtension(ComfyExtension):
     async def get_node_list(self) -> list[type[io.ComfyNode]]:
         return [
             RTXVideoSuperResolution,
-            RTXVideoHDR,
+            RTXTrueHDR,
             RTXVideoFrameGeneration,
         ]
 
@@ -415,6 +415,6 @@ async def comfy_entrypoint() -> NVVFXVideoExtension:
 if False:
     NODE_CLASS_MAPPINGS = {
         "RTXVideoSuperResolution": RTXVideoSuperResolution,
-        "RTXTrueHDR": RTXVideoHDR,
+        "RTXTrueHDR": RTXTrueHDR,
         "RTXVideoFrameGeneration": RTXVideoFrameGeneration,
     }
