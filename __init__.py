@@ -221,10 +221,10 @@ class RTXTrueHDR(io.ComfyNode):
     def define_schema(cls):
         return io.Schema(
             node_id="RTXTrueHDR",
-            display_name="RTX TrueHDR",
+            display_name="RTX Video HDR",
             category="image/enhancement",
-            description="Convert SDR images to HLG or PQ HDR image data with NVIDIA RTX TrueHDR.",
-            search_aliases=["rtx", "nvidia", "true hdr", "hdr10", "hlg", "pq", "sdr to hdr"],
+            description="Convert SDR images to HLG or PQ HDR image data with NVIDIA RTX Video HDR.",
+            search_aliases=["rtx", "nvidia", "video hdr", "true hdr", "truehdr", "hdr10", "hlg", "pq", "sdr to hdr"],
             inputs=[
                 io.Image.Input("images"),
                 io.Int.Input("contrast", default=100, min=0, max=200),
