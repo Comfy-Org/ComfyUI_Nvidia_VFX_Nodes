@@ -8,9 +8,9 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI"
+Repository = "https://github.com/Comfy-Org/ComfyUI_Nvidia_VFX_Nodes"
 
 [tool.comfy]
 PublisherId = "comfyui"
 DisplayName = "ComfyUI Nvidia VFX Nodes"
-Icon = "https://raw.githubusercontent.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI/refs/heads/main/icon.png"
+Icon = "https://raw.githubusercontent.com/Comfy-Org/ComfyUI_Nvidia_VFX_Nodes/refs/heads/main/icon.png"
