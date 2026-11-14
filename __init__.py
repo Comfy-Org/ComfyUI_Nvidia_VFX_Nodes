@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from typing_extensions import override
 
 import comfy.model_management
+from comfy.utils import ProgressBar
 from comfy_api.latest import ComfyExtension, io
 
 
@@ -193,6 +194,7 @@ class RTXVideoSuperResolution(io.ComfyNode):
             effect.output_width = output_width
             effect.output_height = output_height
             effect.load()
+            pbar = ProgressBar(images.shape[0])
 
             for i in range(0, images.shape[0], batch_size):
                 batch = images[i:i + batch_size]
@@ -203,6 +205,7 @@ class RTXVideoSuperResolution(io.ComfyNode):
                     batch_cuda = batch_cuda.movedim(-1, 1).contiguous()
                 for j, frame in enumerate(batch_cuda):
                     copy_effect_output(effect.run(frame).image, output[i + j], selected_encoding)
+                    pbar.update_absolute(i + j + 1)
 
         if alpha is not None:
             upscaled_alpha = F.interpolate(
@@ -270,8 +273,10 @@ class RTXTrueHDR(io.ComfyNode):
             device=device_index,
         ) as effect:
             effect.load()
+            pbar = ProgressBar(len(images))
             for i, image in enumerate(images):
                 result = effect.run(prepare_frame(image, device, ImageEncodingType.RGB8))
+                pbar.update_absolute(i + 1)
                 hdr_image = unpack_rgb10a2(torch.from_dlpack(result.image).clone())
                 if selected_colorspace == HDRColorSpace.HLG:
                     hdr_image = pq_to_hlg(hdr_image, luminance)
@@ -369,6 +374,7 @@ class RTXVideoFrameGeneration(io.ComfyNode):
 
             output_index = 1
             previous_frame = prepare_frame(images[0], device, selected_encoding)
+            pbar = ProgressBar(output_count - 1)
             for current_image in images[1:]:
                 current_frame = prepare_frame(current_image, device, selected_encoding)
                 if selected_type == FrameGenerationType.MULTIPLIER:
@@ -381,6 +387,7 @@ class RTXVideoFrameGeneration(io.ComfyNode):
                         )
                         copy_effect_output(result.image, output[output_index], selected_encoding)
                         output_index += 1
+                        pbar.update_absolute(output_index - 1)
                 else:
                     result = effect.run_at_timestep(
                         previous_frame,
@@ -390,6 +397,7 @@ class RTXVideoFrameGeneration(io.ComfyNode):
                     )
                     copy_effect_output(result.image, output[output_index], selected_encoding)
                     output_index += 1
+                    pbar.update_absolute(output_index - 1)
 
                 output[output_index].copy_(current_image)
                 output_index += 1
